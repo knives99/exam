@@ -12,9 +12,7 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Slf4j
 @SpringBootTest
-@AutoConfigureMockMvc
 public class AccountCacheTests {
 
 

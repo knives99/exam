@@ -5,6 +5,7 @@ import com.example.exam.cache.AccountCache;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Account {
 
@@ -12,15 +13,15 @@ public class Account {
     private String cachedData;
     private static LinkedHashMap<String,Account> cacheMap = new AccountCache<>() ;
 
-
     public static Account getInstance(String key) {
-        Account account = cacheMap.get(key);
-        if(account == null) {
-            account = new Account(key);
-            account.init();
-            cacheMap.put(key, account);
-        }
-        return account;
+
+        return Optional.ofNullable(cacheMap.get(key)).orElseGet( ()-> {
+                    Account newAccount = new Account(key);
+                    newAccount.init();
+                    cacheMap.put(key, newAccount);
+                    return  newAccount;
+                }
+        );
     }
 
     // for測試
